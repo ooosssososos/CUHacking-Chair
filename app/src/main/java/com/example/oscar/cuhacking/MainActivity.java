@@ -45,6 +45,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 new String[]{Manifest.permission.CAMERA},1);
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.INTERNET},1);
+        try {
+            c = Camera.open();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     protected void onResume() {
@@ -105,10 +110,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void dispatchTakePictureIntent() {
-        c = Camera.open(0);
         c.startPreview();
         c.takePicture(null,null,new PhotoHandler(this));
-        c.release();
     }
 
     @Override
